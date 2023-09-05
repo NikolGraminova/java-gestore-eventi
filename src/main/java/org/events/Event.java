@@ -8,7 +8,7 @@ public class Event {
     String title;
     LocalDate date;
     int totalSeats;
-    int bookedSeats = 0;
+    int bookedSeats;
 
 
     // constructors
@@ -45,24 +45,30 @@ public class Event {
 
 
     // methods
-    public void book() throws RuntimeException{
+    public void book(int seats) throws RuntimeException{
         if (date.isBefore(LocalDate.now()) || (totalSeats-bookedSeats ==  0)){
             throw new RuntimeException("Error. Booking not completed.");
-        } else bookedSeats += 1;
+        } else {
+            bookedSeats += seats;
+            totalSeats -= seats;
+        }
     }
-    public void cancel() throws RuntimeException{
+    public void cancel(int seats){
         if (date.isBefore(LocalDate.now()) || (bookedSeats ==  0)){
             throw new RuntimeException("Error. Booking not completed.");
-        } else bookedSeats -= 1;
+        } else {
+            bookedSeats -= seats;
+            totalSeats += seats;
+        }
     }
 
-    public void isValidDate(LocalDate date) throws RuntimeException{
+    public void isValidDate(LocalDate date){
         if (date.isBefore(LocalDate.now())){
             throw new RuntimeException("Date can't be in the past.");
         }
     }
 
-    public void isValidSeats(int totalSeats) throws RuntimeException{
+    public void isValidSeats(int totalSeats){
         if (totalSeats < 0){
             throw new RuntimeException("Total seats can't be negative.");
         }
@@ -71,6 +77,7 @@ public class Event {
     @Override
     public String toString() {
         return date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear()
-                + " " + " - " +title;
+                + " - " +title + " - booked seats: " +
+                getBookedSeats() + " - available seats: " + getTotalSeats();
     }
 }
