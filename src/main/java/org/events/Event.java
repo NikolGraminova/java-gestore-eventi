@@ -45,16 +45,16 @@ public class Event {
 
 
     // methods
-    public void book(int seats) throws RuntimeException{
-        if (date.isBefore(LocalDate.now()) || (totalSeats-bookedSeats ==  0)){
+    public void book(int seats){
+        if (date.isBefore(LocalDate.now()) || (seats > totalSeats)){
             throw new RuntimeException("Error. Booking not completed.");
         } else {
             bookedSeats += seats;
             totalSeats -= seats;
         }
     }
-    public void cancel(int seats){
-        if (date.isBefore(LocalDate.now()) || (bookedSeats ==  0)){
+    public void cancel(int seats) {
+        if (date.isBefore(LocalDate.now()) || (seats > bookedSeats)){
             throw new RuntimeException("Error. Booking not completed.");
         } else {
             bookedSeats -= seats;
