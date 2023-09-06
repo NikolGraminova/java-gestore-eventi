@@ -1,9 +1,7 @@
 package org.events;
 
-import java.security.PublicKey;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class PlanEvents {
 

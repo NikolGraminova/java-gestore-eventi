@@ -51,7 +51,6 @@ public class Event {
             throw new InvalidEventParametersException("Error. Booking not completed.");
         } else {
             bookedSeats += seats;
-            totalSeats -= seats;
         }
     }
     public void cancel(int seats) {
@@ -59,7 +58,6 @@ public class Event {
             throw new InvalidEventParametersException("Error. Canceling not completed.");
         } else {
             bookedSeats -= seats;
-            totalSeats += seats;
         }
     }
 
