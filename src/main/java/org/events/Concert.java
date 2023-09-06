@@ -7,13 +7,13 @@ import java.time.LocalTime;
 public class Concert extends Event{
 
     // fields
-    LocalTime time;
-    BigDecimal price;
+    private LocalTime time;
+    private BigDecimal price;
 
 
     // constructors
     public Concert(String title, LocalDate date, int totalSeats, int bookedSeats, LocalTime time, BigDecimal price) {
-        super(title, date, totalSeats, bookedSeats);
+        super(title, date, totalSeats);
         isValidTime(time);
         this.time = time;
         this.price = price;
@@ -37,15 +37,15 @@ public class Concert extends Event{
 
 
     // methods
-    public void isValidTime(LocalTime time){
+    private void isValidTime(LocalTime time){
         if (time.isBefore(LocalTime.now())){
-            throw new RuntimeException("Time can't be in the past.");
+            throw new IllegalArgumentException("Time can't be in the past.");
         }
     }
 
     @Override
     public String toString() {
-        return title + " - " +  time + " - "
+        return getTitle() + " - " +  time + " - "
                 + "€ " + String.format("%.2f", getPrice());
     }
 }

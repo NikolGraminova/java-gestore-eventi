@@ -1,6 +1,7 @@
 package org.events;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +18,7 @@ public class Main {
                 LocalDate date = LocalDate.parse(scan.nextLine());
                 System.out.print("Total seats: ");
                 int totalSeats = Integer.parseInt(scan.nextLine());
-                Event event = new Event(name, date, totalSeats, 0);
+                Event event = new Event(name, date, totalSeats);
                 System.out.println("Event added: " + event);
 
                 System.out.print("Do you want to book seats for this event? Y/N ");
@@ -48,8 +49,14 @@ public class Main {
                     System.out.println("Invalid choice.");
                 }
 
-            }catch (RuntimeException e){
-                System.out.println(e.getMessage());
+            } catch (InvalidEventParametersException ex){
+                System.out.println("Error while creating event: " + ex.getMessage());
+            } catch (DateTimeParseException de){
+                System.out.println("Invalid date format.");
+            } catch (NumberFormatException ne){
+                System.out.println("Invalid number format.");
+            } catch (Exception e){
+                System.out.println("Generic error.");
             }
         }
         scan.close();
